@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import CreateUser from 'src/users/dtos/CreateUser.dto';
 import updateUser from 'src/users/dtos/UpdateUser.dto';
+import UserProfile from 'src/users/dtos/UserProfile.dto';
 import { UsersService } from 'src/users/services/users/users.service';
-import { deflateSync } from 'zlib';
 
 @Controller('users')
 export class UsersController {
@@ -38,5 +38,13 @@ export class UsersController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.deleteUser(id);
+  }
+
+  @Post(':id/profile')
+  updateProfile(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() userProfileDto: UserProfile,
+  ) {
+    return this.usersService.createProfile(id, userProfileDto);
   }
 }
