@@ -1,24 +1,23 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './User';
 
-@Entity({ name: 'user_profiles' })
-export class Profile {
+@Entity({ name: 'user_posts' })
+export default class Post {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  firstname: string;
+  title: string;
 
   @Column()
-  lastname: string;
-
-  @Column()
-  gender: string;
+  message: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -32,4 +31,7 @@ export class Profile {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   public updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 }

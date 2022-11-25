@@ -13,3 +13,8 @@ export type userProfileType = {
   lastname: string;
   gender: string;
 };
+
+export type UserPostType = {
+  title: string;
+  message: string;
+};
